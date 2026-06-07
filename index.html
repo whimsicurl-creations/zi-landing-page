@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  Break Into Tech — AI Developer Scholarship  ·  Landing Page
+  Skillcrush by PowerToFly  ·  Zero Irving Workforce Development Project Fund
+
+  Exported from Claude Design — June 4, 2026
+
+  This is a single, self-contained file: plain HTML + CSS + vanilla JavaScript.
+  • No build step, no npm, no frameworks.
+  • All CSS lives in the <style> block in <head> (sections are labeled).
+  • All JS lives in the <script> block at the very bottom of <body>.
+  • Fonts load from Google Fonts (<link> in <head>).
+  • The Skillcrush wordmark is inline SVG (vector, no external file).
+  • Photographic images (hero portrait, alum photos) are placeholder <div>
+    blocks with background colors + descriptive labels — swap in real assets.
+
+  >> Search this file for "TODO" to find every spot that needs a real link
+     or a real image before you go live.
+  ============================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Break Into Tech — AI Developer Scholarship · Skillcrush</title>
+<meta name="description" content="A fully funded scholarship to become an AI Developer in 6 months — built for underrepresented New Yorkers. No tech experience needed." />
+
+<!-- Fonts: Montserrat (display) + Poppins (body), via Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================================
+   DESIGN TOKENS  (Skillcrush brand — colors, type, radius, shadow, spacing)
+   Brand discipline: the green (--sc-cta) is used on CTAs ONLY.
+   Bright colors live in accents/illustrations; backgrounds stay white,
+   soft-pastel, violet, or the gradient.
+   ========================================================================= */
+:root {
+  /* CTA green — buttons only */
+  --sc-cta:           #00FFB2;
+  /* Bright palette — accents & icons */
+  --sc-sale:          #F3AAFF;
+  --sc-violet:        #593EFF;
+  --sc-violet-deep:   #7700F6;
+  --sc-purple:        #AA3EFF;
+  --sc-magenta:       #E43DFF;
+  --sc-orange:        #FF6929;
+  --sc-yellow:        #FFD02B;
+  /* Light palette — section backgrounds & fills */
+  --sc-violet-50:     #EDEFFF;
+  --sc-purple-50:     #EAD9FC;
+  --sc-magenta-50:    #F4DAFC;
+  --sc-orange-50:     #FBE6D6;
+  --sc-yellow-50:     #FDF6D8;
+  --sc-violet-100:    #DDD9FC;
+  --sc-pink-50:       #F3E4FF;
+  /* Soft top-down wash */
+  --sc-gradient:      linear-gradient(180deg, #EDEFFF 0%, #F3E4FF 100%);
+  /* Foundation */
+  --sc-black:         #000000;
+  --sc-white:         #FFFFFF;
+  --sc-ink-900:       #101828;
+  --sc-gray-300:      #D9D9D9;
+  --sc-gray-200:      #E7E7E7;
+  --sc-gray-100:      #F8F8F8;
+  /* Type families */
+  --sc-font-display:  'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sc-font-body:     'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Shadows */
+  --sc-shadow-soft:   0 10px 30px rgba(0,0,0,0.06);
+  --sc-shadow-pop:    0 16px 40px rgba(0,0,0,0.12);
+}
+
+/* =========================================================================
+   RESET & BASE
+   ========================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--sc-font-body);
+  font-weight: 300;
+  color: var(--sc-black);
+  background: var(--sc-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+
+/* ---------- Layout primitives ---------- */
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 760px) { .wrap { padding: 0 22px; } }
+
+.section { padding: 104px 0; }
+@media (max-width: 760px) { .section { padding: 64px 0; } }
+
+.bg-soft   { background: var(--sc-violet-50); }
+.bg-grad   { background: var(--sc-gradient); }
+.bg-violet { background: var(--sc-violet); color: #fff; }
+.bg-ink    { background: #0B0B12; color: #fff; }
+
+/* ---------- Type helpers ---------- */
+.display {
+  font-family: var(--sc-font-display); font-weight: 800;
+  line-height: 1.04; letter-spacing: -0.02em; margin: 0; text-wrap: balance;
+}
+.h-eyebrow {
+  font-family: var(--sc-font-display); font-weight: 800;
+  font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.h2 {
+  font-family: var(--sc-font-display); font-weight: 800;
+  font-size: clamp(30px, 4.4vw, 46px); line-height: 1.08;
+  letter-spacing: -0.02em; margin: 0; text-wrap: balance;
+}
+.h3 {
+  font-family: var(--sc-font-display); font-weight: 700;
+  font-size: clamp(21px, 2.4vw, 26px); line-height: 1.2; letter-spacing: -0.01em; margin: 0;
+}
+.lede {
+  font-family: var(--sc-font-body); font-weight: 300;
+  font-size: clamp(18px, 2.1vw, 22px); line-height: 1.6; margin: 0;
+}
+.body { font-size: 18px; line-height: 1.75; font-weight: 300; margin: 0; }
+.small { font-size: 14px; line-height: 1.7; }
+.strong { font-weight: 700; }
+
+/* ---------- Buttons (sticker style) ---------- */
+.btn {
+  font-family: var(--sc-font-display); font-weight: 700; font-size: 18px; line-height: 1.1;
+  padding: 20px 32px; border-radius: 12px; border: 3px solid #000;
+  background: #fff; color: #000;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  cursor: pointer; text-decoration: none;
+  transition: transform .16s cubic-bezier(.2,.8,.2,1), box-shadow .16s cubic-bezier(.2,.8,.2,1);
+}
+.btn:hover { transform: scale(1.04); }
+.btn:active { transform: scale(.97); }
+.btn--primary { background: var(--sc-cta); color: #000; }
+.btn--primary.btn--raised { box-shadow: 0 6px 0 #000; }
+.btn--primary.btn--raised:hover { box-shadow: 0 3px 0 #000; transform: scale(1.04) translateY(3px); }
+.btn--ghostlight { background: transparent; color: #fff; border-color: #fff; }
+.btn--xl { font-size: 20px; padding: 24px 40px; }
+.btn--sm { font-size: 15px; padding: 12px 20px; border-width: 2px; }
+@media (max-width: 760px) {
+  .btn { width: 100%; }
+  .btn--xl { font-size: 18px; padding: 20px 28px; }
+}
+
+/* ---------- Scarcity pills ---------- */
+.flag {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--sc-font-display); font-weight: 800;
+  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 9px 16px; border-radius: 999px; border: 2.5px solid #000;
+  background: var(--sc-cta); color: #000; white-space: nowrap;
+}
+.scarcity {
+  display: inline-flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  font-family: var(--sc-font-body); font-weight: 500; font-size: 15px;
+}
+.scarcity .dot { width: 5px; height: 5px; border-radius: 999px; background: currentColor; opacity: .45; }
+.scarcity b { font-weight: 700; }
+
+/* ---------- Check / list bullets ---------- */
+.check {
+  flex: 0 0 auto; width: 30px; height: 30px; border-radius: 999px;
+  background: var(--sc-cta); border: 2.5px solid #000; display: grid; place-items: center;
+}
+
+/* ---------- Eyebrow accent rule ---------- */
+.eyebrow-row { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-row .rule { width: 34px; height: 3px; background: var(--sc-violet); border-radius: 2px; }
+.bg-violet .eyebrow-row .rule, .bg-ink .eyebrow-row .rule { background: var(--sc-cta); }
+.eyebrow--violet { color: var(--sc-violet); }
+.bg-violet .h-eyebrow, .bg-ink .h-eyebrow { color: var(--sc-cta); }
+
+/* ---------- Image placeholders (SWAP IN REAL PHOTOS) ---------- */
+.img-ph {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; font-family: var(--sc-font-display); font-weight: 700;
+}
+
+/* ---------- Reveal on scroll ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .08s; }
+.reveal.d2 { transition-delay: .16s; }
+.reveal.d3 { transition-delay: .24s; }
+.reveal.d4 { transition-delay: .32s; }
+/* Paragraph / body text appears immediately — no reveal animation */
+p.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* =========================================================================
+   HEADER  (sticky white bar — wordmark left, Apply CTA right)
+   ========================================================================= */
+.hdr {
+  position: sticky; top: 0; z-index: 80;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid var(--sc-gray-200);
+}
+.hdr__in { display: flex; align-items: center; gap: 20px; height: 76px; }
+.hdr__logo img { height: 40px; width: auto; display: block; }
+.hdr__spacer { flex: 1; }
+.hdr__meta { display: flex; align-items: center; gap: 16px; }
+.hdr__meta .small { color: #444; font-weight: 500; }
+.hdr .btn--primary { font-size: 20px; padding: 12px 28px 12px 30px; gap: 16px; }
+@media (max-width: 760px) {
+  .hdr__in { height: 64px; }
+  .hdr__meta .hide-sm { display: none; }
+  .hdr .btn { width: auto; }
+  .hdr .btn--primary { font-size: 15px; padding: 10px 18px; gap: 10px; }
+}
+
+/* =========================================================================
+   HERO  (bold violet block — headline + Apply CTA + student portrait)
+   ========================================================================= */
+.hero { position: relative; overflow: hidden; }
+.hero__in { display: flex; flex-direction: column; gap: 0; padding: 72px 22px 42px; }
+.hero__lower { display: grid; grid-template-columns: 65fr 35fr; gap: 24px; align-items: start; }
+.hero__copy { position: relative; z-index: 2; }
+.hero .display { font-size: clamp(36px, 5vw, 50px); color: #fff; }
+.hero .display .accent { color: var(--sc-cta); font-size: clamp(48px, 7vw, 66px); }
+.hero__lede { color: #fff; font-weight: 600; margin-top: 26px; max-width: none; opacity: .96; font-size: 24px; line-height: 1.4; }
+.hero__fund { color: #fff; opacity: .82; margin-top: 18px; font-size: 18px; line-height: 1.6; max-width: none; }
+.hero__fund b { font-weight: 600; }
+.hero__cta { margin-top: 34px; }
+.hero__scar { margin-top: 22px; color: #fff; }
+.hero .flag { margin-bottom: 22px; }
+
+/* portrait stack */
+.hero__art { position: relative; justify-self: center; width: 100%; max-width: 440px; }
+.hero__portrait { display: flex; justify-content: center; }
+@media (max-width: 860px) {
+  .hero__in { padding: 48px 22px 56px; gap: 0; }
+  .hero__lower { grid-template-columns: 1.2fr 1fr; gap: 24px; }
+  .hero__art { max-width: 300px; justify-self: end; }
+  .hero__lede { max-width: none; }
+}
+@media (max-width: 600px) {
+  .hero__lower { grid-template-columns: 1fr; gap: 0; }
+  .hero__art { order: -1; max-width: 280px; justify-self: end; }
+}
+
+/* =========================================================================
+   STATS strip  (14 yrs · 200K+ students · 148 countries)
+   ========================================================================= */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.stat__num { font-family: var(--sc-font-display); font-weight: 800; font-size: clamp(40px, 6vw, 62px); line-height: 1; letter-spacing: -0.03em; }
+.stat__lbl { margin-top: 12px; font-size: 16px; line-height: 1.5; }
+.stat__rule { width: 40px; height: 4px; border-radius: 2px; margin-top: 16px; }
+@media (max-width: 760px) { .stats { grid-template-columns: 1fr; gap: 24px; } }
+
+/* =========================================================================
+   "SOUNDS FAMILIAR" list + punch card
+   ========================================================================= */
+.familiar { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+.familiar__list { display: flex; flex-direction: column; gap: 0; }
+.familiar__item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px 0; border-bottom: 1px solid var(--sc-gray-200);
+  font-size: 18px; line-height: 1.5;
+}
+.familiar__item:first-child { padding-top: 0; }
+.familiar__mark { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 999px; border: 2.5px solid #000; display: grid; place-items: center; margin-top: 2px; }
+.familiar__punch {
+  background: var(--sc-violet); color: #fff; border-radius: 26px; padding: 44px 40px;
+  align-self: stretch; display: flex; flex-direction: column; justify-content: center;
+}
+@media (max-width: 860px) { .familiar { grid-template-columns: 1fr; gap: 32px; } }
+
+/* =========================================================================
+   INCLUDES grid  (what your scholarship includes)
+   ========================================================================= */
+.includes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.inc {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--sc-gray-200); border-radius: 18px; padding: 26px 26px;
+  box-shadow: var(--sc-shadow-soft);
+}
+.inc__t { font-family: var(--sc-font-display); font-weight: 700; font-size: 19px; margin: 0 0 6px; line-height: 1.25; }
+.inc__d { font-size: 16px; line-height: 1.55; color: #333; margin: 0; }
+.inc--wide { grid-column: 1 / -1; background: var(--sc-violet-50); border-color: transparent; }
+@media (max-width: 760px) { .includes { grid-template-columns: 1fr; } }
+
+/* =========================================================================
+   SALARY CALLOUT  ($157K — big number on dark band)
+   ========================================================================= */
+.salary { text-align: center; }
+.salary__pre { font-family: var(--sc-font-display); font-weight: 700; font-size: 16px; letter-spacing: .04em; text-transform: uppercase; color: rgba(255,255,255,.66); }
+.salary__num {
+  font-family: var(--sc-font-display); font-weight: 800;
+  font-size: clamp(56px, 16vw, 200px); line-height: .9; letter-spacing: -0.04em; margin: 18px 0 8px;
+}
+.salary__num .k { color: var(--sc-violet); }
+.salary__unit { font-size: clamp(22px, 4vw, 34px); font-weight: 700; letter-spacing: -0.02em; vertical-align: super; margin-left: 6px; }
+.salary__cap { font-size: clamp(18px, 2.4vw, 22px); line-height: 1.6; max-width: 40ch; margin: 0 auto; color: rgba(255,255,255,.9); }
+.salary__src { margin-top: 18px; font-size: 14px; color: rgba(255,255,255,.5); }
+.salary__link { color: rgba(255,255,255,.85); text-decoration: underline; text-decoration-color: var(--sc-cta); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: text-decoration-thickness .15s ease; }
+.salary__link:hover { text-decoration-thickness: 3px; }
+
+/* =========================================================================
+   WHAT IS AN AI DEVELOPER  (copy + illustrated chat browser)
+   ========================================================================= */
+.aidev { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+.aidev__visual {
+  border-radius: 24px; overflow: hidden;
+  background: var(--sc-violet-50); border: 1px solid var(--sc-gray-200);
+  margin:0 auto;
+}
+.browser { margin: 24px; background: #fff; border: 2.5px solid #000; border-radius: 14px; overflow: hidden; box-shadow: 0 14px 0 rgba(0,0,0,.06); max-width:450px;}
+.browser__bar { height: 34px; background: #fff; border-bottom: 2px solid #000; display: flex; align-items: center; gap: 7px; padding: 0 14px; }
+.browser__bar span { width: 11px; height: 11px; border-radius: 999px; border: 1.5px solid #000; }
+.browser__bar span:nth-child(1) { background: var(--sc-orange); }
+.browser__bar span:nth-child(2) { background: var(--sc-yellow); }
+.browser__bar span:nth-child(3) { background: var(--sc-cta); }
+.browser__body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.chat-bubble { max-width: 80%; padding: 12px 14px; border-radius: 14px; font-size: 13px; line-height: 1.4; }
+.chat-bubble--user { align-self: flex-end; background: var(--sc-violet); color: #fff; border-bottom-right-radius: 4px; }
+.chat-bubble--ai { align-self: flex-start; background: var(--sc-violet-50); color: #000; border-bottom-left-radius: 4px; border: 1.5px solid var(--sc-violet-100); }
+.chat-typing { display: flex; gap: 5px; padding: 12px 14px; align-self: flex-start; background: var(--sc-violet-50); border-radius: 14px; border: 1.5px solid var(--sc-violet-100); }
+.chat-typing span { width: 7px; height: 7px; border-radius: 999px; background: var(--sc-violet); opacity: .5; animation: blink 1.2s infinite; }
+.chat-typing span:nth-child(2){ animation-delay: .2s; } .chat-typing span:nth-child(3){ animation-delay: .4s; }
+@keyframes blink { 0%,100%{opacity:.3} 50%{opacity:1} }
+.brands { margin-top: 30px; }
+.brands__lbl { font-size: 14px; color: #555; margin-bottom: 14px; }
+.brands__row { display: flex; flex-wrap: wrap; gap: 12px; }
+.brand-chip {
+  font-family: var(--sc-font-display); font-weight: 800; font-size: 15px;
+  letter-spacing: -0.01em; padding: 10px 18px; border-radius: 10px; border: 2px solid #000; background: #fff;
+}
+@media (max-width: 860px) { .aidev { grid-template-columns: 1fr; gap: 36px; } }
+
+/* =========================================================================
+   TESTIMONIALS  (circular alum photo + colored ring accent)
+   ========================================================================= */
+.tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.tcard {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  background: #fff; border: 1px solid var(--sc-gray-200); border-radius: 22px;
+  padding: 36px 28px 32px; box-shadow: var(--sc-shadow-soft); gap: 16px;
+}
+.tcard__avatar {
+  position: relative; width: 116px; height: 116px; border-radius: 50%;
+  border: 4px solid var(--sc-violet); padding: 4px; background: #fff; flex: 0 0 auto;
+}
+/* Placeholder for circular alum photo — swap in a real headshot */
+.tcard__avatar .avatar-ph {
+  display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%;
+  background: var(--sc-violet-50); color: var(--sc-violet);
+  font-family: var(--sc-font-display); font-weight: 700; font-size: 12px;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.tcard__role { margin: -2px 0 2px; }
+.tcard__quote { font-family: var(--sc-font-body); font-weight: 300; font-size: 17px; line-height: 1.6; margin: 0; flex: 1; }
+.tcard__attr { margin-top: auto; }
+.tcard__name { font-family: var(--sc-font-display); font-weight: 700; font-size: 16px; }
+.tcard__meta { font-size: 14px; color: #666; margin-top: 2px; }
+.role-pill {
+  display: inline-block; font-family: var(--sc-font-display); font-weight: 800;
+  font-size: 12px; text-transform: uppercase; letter-spacing: .03em;
+  padding: 5px 12px; border-radius: 999px; border: 2px solid #000;
+}
+.role-pill--orange { background: var(--sc-orange); }
+.role-pill--yellow { background: var(--sc-yellow); }
+.role-pill--violet { background: var(--sc-violet); color: #fff; }
+@media (max-width: 860px) { .tgrid { grid-template-columns: 1fr; } }
+
+/* =========================================================================
+   CURRICULUM — phased timeline  (what you'll learn)
+   ========================================================================= */
+.curr__head { margin-bottom: 44px; }
+.phase-num {
+  font-family: var(--sc-font-display); font-weight: 800; font-size: 15px;
+  width: 40px; height: 40px; border-radius: 999px; border: 2.5px solid #000;
+  display: grid; place-items: center; flex: 0 0 auto;
+}
+.lesson { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; line-height: 1.5; padding: 9px 0; }
+.lesson__tick { flex: 0 0 auto; width: 20px; height: 20px; margin-top: 2px; }
+.timeline { position: relative; display: flex; flex-direction: column; gap: 28px; }
+.tl-row { display: grid; grid-template-columns: 56px 1fr; gap: 24px; }
+.tl-rail { display: flex; flex-direction: column; align-items: center; }
+.tl-line { width: 3px; flex: 1; background: var(--sc-gray-200); margin-top: 6px; border-radius: 2px; }
+.tl-card { border: 3px solid #000; border-radius: 22px; padding: 28px 30px; background: #fff; }
+.tl-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 6px; }
+.tl-tag { font-family: var(--sc-font-display); font-weight:800; font-size:12px; text-transform: uppercase; letter-spacing:.05em; padding: 5px 12px; border-radius: 999px; border: 2px solid #000; }
+.tl-lessons { columns: 2; column-gap: 40px; margin-top: 14px; }
+.tl-lessons .lesson { break-inside: avoid; }
+.acc__meta { font-size: 15px; color: #555; margin: -2px 0 14px; }
+@media (max-width: 760px) { .tl-lessons { columns: 1; } .tl-row { grid-template-columns: 44px 1fr; gap: 16px; } }
+
+/* =========================================================================
+   WHEN & WHERE  (schedule + location + Get Hired Program)
+   ========================================================================= */
+.ww { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.ww__card { border: 3px solid #000; border-radius: 24px; padding: 34px; display: flex; flex-direction: column; gap: 6px; }
+.ww__card--when { background: var(--sc-violet-50); }
+.ww__card--where { background: var(--sc-yellow-50); }
+.ww__k { font-family: var(--sc-font-display); font-weight: 800; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #555; }
+.ww__big { font-family: var(--sc-font-display); font-weight: 800; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; letter-spacing: -0.01em; margin: 6px 0 4px; }
+.ww__sub { font-size: 17px; line-height: 1.55; }
+.ww__divider { height: 1px; background: rgba(0,0,0,.12); margin: 18px 0; }
+.ww__note { display: inline-flex; align-items: flex-start; gap: 9px; font-size: 15px; line-height: 1.5; background: #fff; border: 2px solid #000; border-radius: 12px; padding: 12px 14px; }
+.ww__note svg { flex: 0 0 auto; margin-top: 1px; }
+.ww__trains { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+.train { width: 30px; height: 30px; border-radius: 999px; background: #000; color: #fff; display: grid; place-items: center; font-family: var(--sc-font-display); font-weight: 800; font-size: 14px; }
+/* full-width Get Hired block */
+.ww__card--hired { background: var(--sc-magenta-50); margin-top: 24px; }
+.ww__hired-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 44px; align-items: center; }
+.ww__hired-facts { display: flex; flex-direction: column; gap: 14px; }
+.ww__fact {
+  display: flex; align-items: center; gap: 14px;
+  background: #fff; border: 2.5px solid #000; border-radius: 14px; padding: 16px 18px;
+  font-size: 15px; line-height: 1.4;
+}
+.ww__fact svg { flex: 0 0 auto; }
+.ww__fact b { font-family: var(--sc-font-display); font-weight: 700; }
+@media (max-width: 860px) { .ww__hired-grid { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 760px) { .ww { grid-template-columns: 1fr; } }
+
+/* =========================================================================
+   AFTER YOU APPLY  (6-step process timeline)
+   ========================================================================= */
+.steps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; position: relative; }
+.step { position: relative; padding: 0 14px; }
+.step__dot {
+  width: 46px; height: 46px; border-radius: 999px; border: 3px solid #000; background: #fff;
+  display: grid; place-items: center; font-family: var(--sc-font-display); font-weight: 800; font-size: 17px;
+  position: relative; z-index: 2;
+}
+.step:first-child .step__dot { background: var(--sc-cta); }   /* step 1 = active */
+.step__connector { position: absolute; top: 22px; left: 37px; right: -37px; height: 3px; background: var(--sc-gray-200); z-index: 1; }
+.step:last-child .step__connector { display: none; }
+.step__when { font-family: var(--sc-font-display); font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .03em; margin-top: 18px; color: var(--sc-violet); }
+.step__t { font-family: var(--sc-font-display); font-weight: 700; font-size: 18px; margin: 6px 0; line-height: 1.2; }
+.step__d { font-size: 14px; line-height: 1.5; color: #444; }
+@media (max-width: 920px) {
+  .steps { grid-template-columns: 1fr; gap: 0; }
+  .step { display: grid; grid-template-columns: 46px 1fr; gap: 18px; padding: 0 0 28px 0; }
+  .step__connector { top: 46px; bottom: 0; left: 22px; right: auto; width: 3px; height: auto; }
+  .step__body { padding-top: 4px; }
+  .step__when { margin-top: 4px; }
+}
+
+/* =========================================================================
+   FINAL CTA  (violet close — last Apply button + reassurance + contact)
+   ========================================================================= */
+.final { text-align: center; }
+.final .display { color: #fff; font-size: clamp(34px, 5.2vw, 60px); }
+.final__sub { color: #fff; text-wrap: balance; opacity: .94; margin: 26px auto 0; max-width: 52ch; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.6; }
+.final__scar { margin: 22px auto 0; color: #fff; opacity: .85; max-width: 50ch; font-size: 16px; line-height: 1.6; }
+.final__cta { margin-top: 34px; display: flex; justify-content: center; }
+.final__reassure {
+  margin: 40px auto 0; max-width: 620px; background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.28); border-radius: 18px; padding: 20px 24px;
+  font-size: 16px; line-height: 1.6; color: #fff;
+}
+.final__contact { margin-top: 26px; color: #fff; opacity: .9; font-size: 16px; }
+.final__contact a { color: var(--sc-cta); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+
+/* =========================================================================
+   FOOTER
+   ========================================================================= */
+.ftr { padding: 24px 0; background: #fff; border-top: 1px solid var(--sc-gray-200); }
+.ftr__in { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.ftr__logo img { height: 34px; width: auto; display: block; }
+.ftr__fund { font-size: 14px; color: #555; line-height: 1.6; }
+.ftr__fund b { color: #000; font-weight: 600; }
+.ftr__legal { font-size: 13px; color: #555; }
+@media (max-width: 1005px) {
+  .ftr__in { display: grid; grid-template-columns: 1fr 2fr; gap: 16px 24px; align-items: start; }
+  .ftr__logo { grid-row: 1 / 3; align-self: start; justify-self: center; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================================
+     HEADER
+     ========================================================================= -->
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__logo" href="#top" aria-label="Skillcrush by PowerToFly">
+      <img src="img/skillcrush-by-ptf-black.svg" alt="Skillcrush by PowerToFly">
+    </a>
+    <div class="hdr__spacer"></div>
+    <div class="hdr__meta">
+      <span class="small hide-sm">15 scholarships · Apply by Aug 1</span>
+      <a class="btn btn--primary btn--sm" href="https://powertofly.com/i/skillcrush-ai-dev-application" target="_blank" rel="noopener" style="flex-direction:row">
+        Apply Now
+        <svg viewBox="0 0 20 16" fill="none" style="height:24px"><path d="M2 8h15M11 2l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================================
+     HERO
+     ========================================================================= -->
+<section class="hero bg-violet" id="top">
+  <div class="wrap hero__in">
+    <div class="hero__headline">
+      <div class="eyebrow-row reveal d1"><span class="rule"></span><span class="h-eyebrow" style="color:#1bffb7">AI Developer Scholarship for New Yorkers</span></div>
+      <h1 class="display reveal d1" style="line-height:1.15;">
+        The only thing standing between you and a tech career is the opportunity.
+        <span class="accent" style="line-height:1.15;display:block;margin-top:6px">Here it is.</span>
+      </h1>
+    </div>
+
+    <div class="hero__lower">
+      <div class="hero__copy">
+        <p class="hero__lede lede reveal d2">We're offering a full scholarship to become an AI Developer — built for New Yorkers ready for more.</p>
+        <p class="hero__fund reveal d2">In 6 months, you'll go from complete beginner to job-ready AI Developer. Plus, you'll have 6 months of job search support to land your first role in tech.</p>
+        <p class="hero__fund reveal d3" style="margin-top:12px">The Break into Tech AI Developer scholarship is a learning opportunity for underrepresented New Yorkers ready for a better career — <b>no tech experience needed.</b> Fully funded by the Zero Irving Workforce Development Project Fund.</p>
+        <div class="hero__cta reveal d3">
+          <a class="btn btn--primary btn--raised btn--xl" href="https://powertofly.com/i/skillcrush-ai-dev-application" target="_blank" rel="noopener" style="flex-direction:row;gap:16px;padding:12px 28px 12px 30px;font-size:20px">
+            <span style="display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.15">Apply for Your Scholarship<span style="font-size:15px;font-weight:600;opacity:.85;margin-top:2px">Takes 5 Minutes</span></span>
+            <svg viewBox="0 0 20 16" fill="none" style="height:24px"><path d="M2 8h15M11 2l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="hero__scar scarcity reveal d4">
+          <span><b>Only 15 scholarships</b> available</span>
+          <span class="dot"></span>
+          <span>Apply by <b>August 1, 2026</b></span>
+        </div>
+      </div>
+
+      <div class="hero__art reveal d2">
+        <div class="hero__portrait">
+          <div class="img-ph" aria-hidden="true">
+             <img src="img/pink-shape-drop-shadow.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     SOUND TOO GOOD TO BE TRUE?
+     ========================================================================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">Real talk</span></div>
+    <h2 class="h2 reveal">Sound too good to be true?</h2>
+    <p class="lede reveal d1" style="margin-top:24px;color:#333">We get it. You've probably seen programs that promise a lot and deliver nothing.</p>
+    <p class="body reveal d2" style="margin-top:18px;font-size:20px;line-height:1.7">This is different. The Break Into Tech AI Developer Scholarship is <span class="strong">fully funded by the Zero Irving Workforce Development Project Fund</span> — a real scholarship, with real support, for real New Yorkers.</p>
+  </div>
+</section>
+
+<!-- =========================================================================
+     BUILT BY SKILLCRUSH  (credibility + stats)
+     ========================================================================= -->
+<section class="section bg-soft">
+  <div class="wrap">
+    <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">Who's behind it</span></div>
+    <h2 class="h2 reveal">Built by Skillcrush, with 14 years of turning beginners into developers</h2>
+    <p class="body reveal d1" style="margin-top:24px;font-size:19px">The Break Into Tech AI Developer scholarship is powered by Skillcrush, an online tech education platform built on one core belief: <span class="strong">tech is for everyone.</span></p>
+    <p class="body reveal d1" style="margin-top:16px;color:#333">Since 2012, Skillcrush has helped over 200,000 students across 148 countries learn to code, build real projects, and land jobs in tech — most of them starting with zero experience, just like you.</p>
+    <p class="body reveal d2" style="margin-top:16px;color:#333">We know what it takes to turn "I could never do this" into "I just got hired." The Break Into Tech AI Developer Scholarship is how we're bringing that same proven curriculum, mentorship, and career support into a New York City classroom — so you can make it happen, too.</p>
+
+    <div class="stats" style="margin-top:56px">
+      <div class="stat reveal d1">
+        <div class="stat__num">14 yrs</div>
+        <div class="stat__rule" style="background:var(--sc-orange)"></div>
+        <div class="stat__lbl">Turning beginners into developers since 2012</div>
+      </div>
+      <div class="stat reveal d2">
+        <div class="stat__num">200K+</div>
+        <div class="stat__rule" style="background:var(--sc-violet)"></div>
+        <div class="stat__lbl">Students taught how to code</div>
+      </div>
+      <div class="stat reveal d3">
+        <div class="stat__num">148</div>
+        <div class="stat__rule" style="background:var(--sc-magenta)"></div>
+        <div class="stat__lbl">Countries reached around the world</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     IF ANY OF THIS SOUNDS FAMILIAR
+     ========================================================================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="familiar">
+      <div>
+        <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">Does this sound like you?</span></div>
+        <h2 class="h2 reveal" style="margin-bottom:28px">If any of this sounds familiar…</h2>
+        <div class="familiar__list">
+          <div class="familiar__item reveal d1"><span class="familiar__mark"><svg viewBox="0 0 15 13" fill="none" style="width:12px;height:11px"><path d="M1.5 7L5 10.5L13.5 1.5" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>You're tired of jobs that don't pay enough</span></div>
+          <div class="familiar__item reveal d2"><span class="familiar__mark"><svg viewBox="0 0 15 13" fill="none" style="width:12px;height:11px"><path d="M1.5 7L5 10.5L13.5 1.5" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="text-wrap:balance">You've thought about a career in tech, but assumed it wasn't for people like you</span></div>
+          <div class="familiar__item reveal d3"><span class="familiar__mark"><svg viewBox="0 0 15 13" fill="none" style="width:12px;height:11px"><path d="M1.5 7L5 10.5L13.5 1.5" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>You can't afford to go back to school</span></div>
+          <div class="familiar__item reveal d4"><span class="familiar__mark"><svg viewBox="0 0 15 13" fill="none" style="width:12px;height:11px"><path d="M1.5 7L5 10.5L13.5 1.5" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>You don't own a laptop</span></div>
+          <div class="familiar__item reveal d4"><span class="familiar__mark"><svg viewBox="0 0 15 13" fill="none" style="width:12px;height:11px"><path d="M1.5 7L5 10.5L13.5 1.5" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="text-wrap:balance">You're ready to change your life, but don't know where to start</span></div>
+        </div>
+      </div>
+      <div class="familiar__punch reveal d2">
+        <h3 class="display" style="color:#fff;font-size:clamp(28px,3.6vw,40px);text-align:center;line-height:1.1">You are exactly who we built this for.</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     WHAT YOUR SCHOLARSHIP INCLUDES
+     ========================================================================= -->
+<section class="section bg-grad">
+  <div class="wrap">
+    <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">No catch</span></div>
+    <h2 class="h2 reveal">What your scholarship includes</h2>
+    <div class="includes" style="margin-top:44px">
+      <div class="inc reveal d1">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" style="width:17px;height:17px"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div><p class="inc__t">6 months of hands-on AI developer training</p><p class="inc__d">Starting from zero — no experience required.</p></div>
+      </div>
+      <div class="inc reveal d2">
+        <span class="check"><svg viewBox="0 0 24 20" fill="none" style="width:17px;height:17px"><rect x="4" y="3" width="16" height="11" rx="1.5" stroke="#000" stroke-width="1.8"/><path d="M1 17h22" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div><p class="inc__t">A free laptop</p><p class="inc__d">Yours to keep after you graduate.</p></div>
+      </div>
+      <div class="inc reveal d3">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" style="width:17px;height:17px"><circle cx="12" cy="9" r="6" stroke="#000" stroke-width="1.8"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7" stroke="#000" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <div><p class="inc__t">An AI Developer Certificate</p><p class="inc__d">Issued by Skillcrush.</p></div>
+      </div>
+      <div class="inc reveal d4">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" style="width:17px;height:17px"><path d="M3 18v-1.5C3 13.5 6 12 9 12s6 1.5 6 4.5V18" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="6.5" r="3.5" stroke="#000" stroke-width="1.8"/><path d="M16 13c2.4 0 5 1.2 5 4v1M16.5 6.4a3 3 0 010 5.2" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <div><p class="inc__t">Up to 6 months of job coaching</p><p class="inc__d">Helping you land your first tech role.</p></div>
+      </div>
+      <div class="inc inc--wide reveal d4">
+        <span class="check"><svg viewBox="0 0 24 22" fill="none" style="width:17px;height:17px"><path d="M12 20S2 13.5 2 7.5A5 5 0 0112 5a5 5 0 0110 2.5C22 13.5 12 20 12 20z" stroke="#000" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <div><p class="inc__t">A community and mentors</p><p class="inc__d">Who are with you every step of the way, cheering you on.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     SALARY CALLOUT  ($157K)
+     ========================================================================= -->
+<section class="section bg-ink">
+  <div class="wrap salary">
+    <p class="salary__pre reveal">The median total pay for an AI Developer with 0–1 year of experience in NYC</p>
+    <div class="salary__num reveal d1">$157<span class="k">K</span><span class="salary__unit">/year</span></div>
+    <p class="salary__cap reveal d2">That's the market you'll be stepping into — and we're going to help you get ready for it.</p>
+    <p class="salary__src reveal d3">Source: <a class="salary__link" href="https://www.glassdoor.com/Salaries/new-york-ny-us-ai-developer-salary-SRCH_IL.0,14_IC1132348_KO15,27.htm" target="_blank" rel="noopener">Glassdoor</a>, New York City</p>
+  </div>
+</section>
+
+<!-- =========================================================================
+     WHAT IS AN AI DEVELOPER
+     ========================================================================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="aidev">
+      <div>
+        <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">The role</span></div>
+        <h2 class="h2 reveal">What is an AI Developer?</h2>
+        <p class="body reveal d1" style="margin-top:22px">You've probably already used something an AI Developer built — a chatbot that actually helped you, a tool that summarized a document in seconds, an app that felt like it read your mind. <span class="strong">AI Developers are the people who create those experiences.</span> They combine web development skills with AI tools to build apps that are smarter, faster, and more useful than anything that came before.</p>
+        <p class="body reveal d2" style="margin-top:16px;color:#333">Companies like Stripe, Duolingo, Morgan Stanley, and Bing have already transformed how they serve their customers using exactly these kinds of tools — and they're just the beginning. It's the fastest-growing skill in tech right now, and the demand for people who can build these apps is only going up.</p>
+        <div class="brands reveal d3">
+          <div class="brands__lbl">Just a few of the companies already building with these tools:</div>
+          <div class="brands__row">
+            <span class="brand-chip">Stripe</span>
+            <span class="brand-chip">Duolingo</span>
+            <span class="brand-chip">Morgan Stanley</span>
+            <span class="brand-chip">Bing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="aidev__visual reveal d2" aria-hidden="true">
+        <div class="browser">
+          <div class="browser__bar"><span></span><span></span><span></span></div>
+          <div class="browser__body">
+            <div class="chat-bubble chat-bubble--user">Summarize this 40-page report for me</div>
+            <div class="chat-bubble chat-bubble--ai">Done — here are the 3 key takeaways and what they mean for next quarter…</div>
+            <div class="chat-bubble chat-bubble--user">Now draft an email to the team</div>
+            <div class="chat-typing"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     TESTIMONIALS
+     ========================================================================= -->
+<section class="section bg-soft" id="stories">
+  <div class="wrap">
+    <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">From people who started where you are</span></div>
+    <h2 class="h2 reveal">Totally new to coding? So were they.</h2>
+    <p class="lede reveal d1" style="margin-top:20px;color:#333">Skillcrush alums who came in with zero tech experience — and built a whole new career.</p>
+
+    <div class="tgrid" style="margin-top:28px">
+      <!-- Card 1 -->
+      <div class="tcard reveal d1">
+        <div class="tcard__avatar" style="border-color:var(--sc-orange)">
+          <img src="img/jasmine-reese.png" style="border-radius:50%;" alt="Skillcrush alum Jasmine Reese">
+        </div>
+        <span class="tcard__role role-pill role-pill--orange">Now: Web Administrator</span>
+        <p class="tcard__quote">"The skills I learned from Skillcrush made me more prepared for my first role than my coworkers who had computer science degrees. To realize that I'm doing Skillcrush and I'm learning these skills and within a year I have a job — it is mind blowing!"</p>
+        <div class="tcard__attr">
+          <div class="tcard__name">Jasmine Reese</div>
+          <div class="tcard__meta">Previously: Human Resources</div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="tcard reveal d2">
+        <div class="tcard__avatar" style="border-color:var(--sc-violet)">
+          <img src="img/alana-nanz.png" style="border-radius:50%;" alt="Skillcrush alum Alana Nanz">           
+        </div>
+        <span class="tcard__role role-pill role-pill--violet">Now: Developer</span>
+        <p class="tcard__quote">"The Skillcrush program is very supportive of women, career-changers, & under-represented groups in tech, which I found very uplifting and encouraging. The courses were very informative, fun & the right amount of challenge."</p>
+        <div class="tcard__attr">
+          <div class="tcard__name">Alana Nanz</div>
+          <div class="tcard__meta">Previously: Nonprofit Arts Administrator</div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="tcard reveal d3">
+        <div class="tcard__avatar" style="border-color:var(--sc-yellow)">
+          <img src="img/melissa-gerbereux.jpg" style="border-radius:50%;" alt="Skillcrush alum Melissa Gerbereux">           
+        </div>
+        <span class="tcard__role role-pill role-pill--yellow">Now: Senior Creative Developer</span>
+        <p class="tcard__quote">"Skillcrush completely changed my life. Only 10 months after starting my first lesson, I was able to land a flexible job at a media agency and am continuously growing my freelance web design/dev business."</p>
+        <div class="tcard__attr">
+          <div class="tcard__name">Melissa Gerbereux</div>
+          <div class="tcard__meta">Previously: Senior Buyer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     WHAT YOU'LL LEARN  (phased curriculum timeline)
+     ========================================================================= -->
+<section class="section" id="curriculum">
+  <div class="wrap">
+    <div class="curr__head">
+      <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">The curriculum</span></div>
+      <h2 class="h2 reveal">What you'll learn</h2>
+      <p class="lede reveal d1" style="margin-top:20px;color:#333">From your very first line of code to your first day on the job — here's the full journey, step by step.</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Phase 01 -->
+      <div class="tl-row reveal d1">
+        <div class="tl-rail"><span class="phase-num" style="background:var(--sc-orange);color:#000">01</span><span class="tl-line"></span></div>
+        <div class="tl-card">
+          <div class="tl-card__head"><h3 class="h3">Front End Development</h3><span class="tl-tag" style="background:var(--sc-orange);color:#000">Foundations</span></div>
+          <div class="tl-lessons">
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>HTML &amp; CSS</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Working with Git &amp; GitHub</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Responsive Web Design</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>JavaScript Fundamentals</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Intro to React</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Phase 02 -->
+      <div class="tl-row reveal d2">
+        <div class="tl-rail"><span class="phase-num" style="background:var(--sc-yellow);color:#000">02</span><span class="tl-line"></span></div>
+        <div class="tl-card">
+          <div class="tl-card__head"><h3 class="h3">Full Stack Development</h3><span class="tl-tag" style="background:var(--sc-yellow);color:#000">Build</span></div>
+          <div class="tl-lessons">
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Getting Started with Python</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Building Web Apps with Python</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Working with Data</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Full Stack Project — build a real app with React and Python</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Phase 03 -->
+      <div class="tl-row reveal d3">
+        <div class="tl-rail"><span class="phase-num" style="background:var(--sc-violet);color:#fff">03</span><span class="tl-line"></span></div>
+        <div class="tl-card">
+          <div class="tl-card__head"><h3 class="h3">AI Development</h3><span class="tl-tag" style="background:var(--sc-violet);color:#fff">Specialize</span></div>
+          <div class="tl-lessons">
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Intro to Generative AI Web Apps</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Building Complex AI Apps with LangChain</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Enhancing AI Apps with Your Own Content</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Portfolio Workshop</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Phase 04 -->
+      <div class="tl-row reveal d4">
+        <div class="tl-rail"><span class="phase-num" style="background:#c609e2;color:#fff">04</span></div>
+        <div class="tl-card">
+          <div class="tl-card__head"><h3 class="h3">Get Hired Program</h3><span class="tl-tag" style="background:#c609e2;color:#fff">Land the job</span></div>
+          <p class="acc__meta">Up to 6 months · April – September 2027 · 1-hour weekly virtual group sessions</p>
+          <div class="tl-lessons">
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Resume, LinkedIn, &amp; Portfolio preparation</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Interview prep &amp; technical test guidance</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Job search strategy and support</span></div>
+            <div class="lesson"><svg class="lesson__tick" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#00FFB2" stroke="#000" stroke-width="1.6"/><path d="M6 10l2.6 2.6L14 7" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Coaching to help you land your first role</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     WHEN & WHERE YOU'LL LEARN
+     ========================================================================= -->
+<section class="section bg-soft">
+  <div class="wrap">
+    <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">The logistics</span></div>
+    <h2 class="h2 reveal" style="margin-bottom:40px">When &amp; where you'll learn</h2>
+    <div class="ww">
+      <div class="ww__card ww__card--when reveal d1">
+        <span class="ww__k"><svg viewBox="0 0 22 22" fill="none" style="width:16px;height:16px;display:inline;vertical-align:-3px;margin-right:8px"><rect x="2" y="4" width="18" height="16" rx="2.5" stroke="#000" stroke-width="1.8"/><path d="M2 9h18M7 1.5v4M15 1.5v4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg>When</span>
+        <div class="ww__big">Every Friday · 2:00–5:00 pm</div>
+        <div class="ww__sub">September 18, 2026 – March 26, 2027</div>
+        <div class="ww__divider"></div>
+        <div class="ww__note">
+          <svg viewBox="0 0 18 18" fill="none" style="width:16px;height:16px"><path d="M9 2L17 16H1L9 2z" stroke="#000" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 7v4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="13.4" r="1" fill="#000"/></svg>
+          <span>Plus ~20 hours of at-home study each week, with your provided laptop and courses.</span>
+        </div>
+      </div>
+      <div class="ww__card ww__card--where reveal d2">
+        <span class="ww__k"><svg viewBox="0 0 20 24" fill="none" style="width:14px;height:16px;display:inline;vertical-align:-3px;margin-right:8px"><path d="M10 1C5.6 1 2 4.5 2 9c0 5.6 8 14 8 14s8-8.4 8-14c0-4.5-3.6-8-8-8z" stroke="#000" stroke-width="1.8"/><circle cx="10" cy="9" r="3" stroke="#000" stroke-width="1.8"/></svg>Where</span>
+        <div class="ww__big">Civic Hall · Zero Irving</div>
+        <div class="ww__sub">124 E 14th St, New York, NY 10003</div>
+        <p class="body" style="font-size:16px;margin-top:10px;color:#333">A modern, professional space in the heart of Lower Manhattan — right where NYC's tech community comes to work and connect.</p>
+        <div class="ww__divider"></div>
+        <div class="ww__sub" style="font-size:15px;font-weight:500">Steps from the trains:</div>
+        <div class="ww__trains">
+          <span class="train">4</span><span class="train">5</span><span class="train">6</span><span class="train">L</span><span class="train">N</span><span class="train">Q</span><span class="train">R</span><span class="train">W</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ww__card ww__card--hired reveal d2">
+      <div class="ww__hired-grid">
+        <div>
+          <span class="ww__k"><svg viewBox="0 0 24 24" fill="none" style="width:18px;height:18px;display:inline;vertical-align:-4px;margin-right:8px"><path d="M3 18v-1.5C3 13.5 6 12 9 12s6 1.5 6 4.5V18" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="6.5" r="3.5" stroke="#000" stroke-width="1.8"/><path d="M16 13c2.4 0 5 1.2 5 4v1M16.5 6.4a3 3 0 010 5.2" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg>Then: Job Search Support</span>
+          <div class="ww__big">Get Hired Program</div>
+          <p class="body" style="font-size:17px;margin-top:10px;color:#333">After class wraps, the work continues. The Get Hired Program runs for up to six months — pairing ~20 hours of at-home work with 1-hour weekly group sessions, held virtually, to dig into job search strategy, support, and coaching helping you land your first role in tech.</p>
+        </div>
+        <div class="ww__hired-facts">
+          <div class="ww__fact">
+            <svg viewBox="0 0 22 22" fill="none" style="width:20px;height:20px"><rect x="2" y="4" width="18" height="16" rx="2.5" stroke="#000" stroke-width="1.8"/><path d="M2 9h18M7 1.5v4M15 1.5v4" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span><b>April – September 2027</b><br />Up to 6 months (less if you land a job sooner!)</span>
+          </div>
+          <div class="ww__fact">
+            <svg viewBox="0 0 24 20" fill="none" style="width:22px;height:18px"><rect x="4" y="3" width="16" height="11" rx="1.5" stroke="#000" stroke-width="1.8"/><path d="M1 17h22" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span><b>~20 hours</b> of at-home work</span>
+          </div>
+          <div class="ww__fact">
+            <svg viewBox="0 0 24 24" fill="none" style="width:22px;height:22px"><path d="M3 18v-1.5C3 13.5 6 12 9 12s6 1.5 6 4.5V18" stroke="#000" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="6.5" r="3.5" stroke="#000" stroke-width="1.8"/><path d="M16 13c2.4 0 5 1.2 5 4v1M16.5 6.4a3 3 0 010 5.2" stroke="#000" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span><b>1-hour weekly</b> virtual group sessions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     WHAT HAPPENS AFTER YOU APPLY
+     ========================================================================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow-row reveal"><span class="rule"></span><span class="h-eyebrow eyebrow--violet">The process</span></div>
+    <h2 class="h2 reveal" style="margin-bottom:48px">What happens after you apply</h2>
+    <div class="steps">
+      <div class="step reveal d1"><span class="step__connector"></span><span class="step__dot">1</span><div class="step__body"><div class="step__when">Now – Aug 1</div><div class="step__t">Apply</div><div class="step__d">Online form, only takes 5 minutes.</div></div></div>
+      <div class="step reveal d2"><span class="step__connector"></span><span class="step__dot">2</span><div class="step__body"><div class="step__when">Aug 2–15</div><div class="step__t">We Review</div><div class="step__d">Every application reviewed carefully.</div></div></div>
+      <div class="step reveal d3"><span class="step__connector"></span><span class="step__dot">3</span><div class="step__body"><div class="step__when">Aug 16–22</div><div class="step__t">Short Interview</div><div class="step__d">A brief 15-minute conversation.</div></div></div>
+      <div class="step reveal d4"><span class="step__connector"></span><span class="step__dot">4</span><div class="step__body"><div class="step__when">By Aug 29</div><div class="step__t">Decision</div><div class="step__d">Every applicant hears back. No one gets left hanging.</div></div></div>
+      <div class="step reveal d4"><span class="step__connector"></span><span class="step__dot">5</span><div class="step__body"><div class="step__when">Sept 1–12</div><div class="step__t">Onboarding</div><div class="step__d">Laptop, MetroCard, everything you need before Day 1.</div></div></div>
+      <div class="step reveal d4"><span class="step__connector"></span><span class="step__dot">6</span><div class="step__body"><div class="step__when">Sept 18</div><div class="step__t">First Class</div><div class="step__d">You show up. We take it from there.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================================
+     FINAL CTA
+     ========================================================================= -->
+<section class="section bg-violet final" id="apply">
+  <div class="wrap">
+    <span class="flag reveal" style="margin-bottom:26px">
+      <svg viewBox="0 0 24 24" fill="#000" style="width:14px;height:14px"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      Only 15 spots
+    </span>
+    <h2 class="display reveal d1">You've read this far.<br>Something in here spoke to you.</h2>
+    <p class="final__sub reveal d2">Don't talk yourself out of what could be the best decision you ever make.</p>
+    <p class="final__scar reveal d2">Only 15 scholarships available.<br>Applications close <span class="strong" style="font-weight:600">August 1, 2026</span>.<br>Classes start September 18, 2026.</p>
+    <div class="final__cta reveal d3">
+      <a class="btn btn--primary btn--raised btn--xl" href="https://powertofly.com/i/skillcrush-ai-dev-application" target="_blank" rel="noopener" style="flex-direction:row;gap:16px;padding:12px 28px 12px 30px;font-size:20px">
+        <span style="display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.15">Apply for Your Scholarship<span style="font-size:15px;font-weight:600;opacity:.85;margin-top:2px">Takes 5 Minutes</span></span>
+        <svg viewBox="0 0 20 16" fill="none" style="height:24px"><path d="M2 8h15M11 2l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <div class="final__reassure reveal d3">
+      <p style="font-weight:700;font-size:20px;margin:0 0 8px 0">Not sure if you qualify? Apply anyway.</p>
+      <p style="margin:0">We review every application individually. We'd rather hear from you than have you talk yourself out of it.</p>
+    </div>
+    <p class="final__contact reveal d4">
+      Have questions? We'd love to hear from you. Reach out at <a href="mailto:hello@skillcrush.com" style="color: #1bffb7">hello@skillcrush.com</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================================
+     FOOTER
+     ========================================================================= -->
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <a class="ftr__logo" href="#top" aria-label="Skillcrush by PowerToFly">
+      <img src="img/skillcrush-by-ptf-black.svg" alt="Skillcrush by PowerToFly">
+    </a>
+    <div class="ftr__fund">Funded by the <b>Zero Irving Workforce Development Project Fund</b></div>
+    <div class="ftr__legal">© 2012–2026 Skillcrush, Inc. · All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- =========================================================================
+     SCRIPT  — reveal-on-scroll (vanilla JS, no dependencies)
+     Adds the .in class to .reveal elements as they enter the viewport.
+     Paragraphs are exempt via CSS (they appear immediately).
+     ========================================================================= -->
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: just show everything.
+      for (var i = 0; i < els.length; i++) { els[i].classList.add('in'); }
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
